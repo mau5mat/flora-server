@@ -85,53 +85,53 @@ instance
   toOpenApi _ =
     toOpenApi (Proxy @api)
       & #allOperations
-      % #parameters
-      <>~ [O.Inline offsetParam, O.Inline limitParam]
+        % #parameters
+        <>~ [O.Inline offsetParam, O.Inline limitParam]
     where
       offsetParam :: O.Param
       limitParam :: O.Param
       offsetParam =
         mempty
           & #name
-          .~ "offset"
+            .~ "offset"
           & #description
-          ?~ "Pagination parameter. How many items to skip from the beginning."
+            ?~ "Pagination parameter. How many items to skip from the beginning."
           & #required
-          ?~ False
+            ?~ False
           & #in
-          .~ O.ParamQuery
+            .~ O.ParamQuery
           & #schema
-          ?~ O.Inline offsetParamSchema
+            ?~ O.Inline offsetParamSchema
       offsetParamSchema =
         mempty
           & #type
-          ?~ O.OpenApiInteger
+            ?~ O.OpenApiInteger
           & #format
-          ?~ "int32"
+            ?~ "int32"
 
       limitParam =
         mempty
           & #name
-          .~ "limit"
+            .~ "limit"
           & #description
-          ?~ mconcat
-            [ "Pagination parameter. Maximum number of items to return.\n"
-            , defaultPageSizeDesc
-            ]
+            ?~ mconcat
+              [ "Pagination parameter. Maximum number of items to return.\n"
+              , defaultPageSizeDesc
+              ]
           & #required
-          ?~ False
+            ?~ False
           & #in
-          .~ O.ParamQuery
+            .~ O.ParamQuery
           & #schema
-          ?~ O.Inline limitParamSchema
+            ?~ O.Inline limitParamSchema
       limitParamSchema =
         mempty
           & #type
-          ?~ O.OpenApiInteger
+            ?~ O.OpenApiInteger
           & #format
-          ?~ "int32"
+            ?~ "int32"
           & #pattern
-          ?~ "^\\d*[1-9]\\d*$"
+            ?~ "^\\d*[1-9]\\d*$"
       defaultPageSizeDesc :: Text
       defaultPageSizeDesc = case settingDefPageSize @settings of
         Nothing -> "By default, no limit will be applied."

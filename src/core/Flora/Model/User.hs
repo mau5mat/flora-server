@@ -106,7 +106,7 @@ type CannotDisplayPassword e =
     ':<>: 'Text "!"
     ':$$: 'Text "  This is likely a security leak. Please make sure whether this was intended."
     ':$$: 'Text "  If this is intended, please use 'unsafeShowPassword' before converting to "
-    ':<>: 'Text e
+      ':<>: 'Text e
     ':$$: 'Text ""
 
 instance ToField PasswordHash where

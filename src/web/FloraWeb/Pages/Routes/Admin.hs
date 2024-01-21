@@ -1,12 +1,14 @@
 module FloraWeb.Pages.Routes.Admin where
 
 import Data.Text (Text)
-import Flora.Model.User
 import Lucid
 import OddJobs.Endpoints qualified as OddJobs
 import Servant
 import Servant.API.Generic
 import Servant.HTML.Lucid
+
+import Flora.Model.User
+import FloraWeb.Pages.Routes.Admin.PackageRepo qualified as PackageRepo
 
 type Routes = NamedRoutes Routes'
 
@@ -23,6 +25,7 @@ data Routes' mode = Routes'
   , oddJobs :: mode :- "odd-jobs" :> OddJobs.FinalAPI -- they compose :o
   , users :: mode :- "users" :> AdminUsersRoutes
   , packages :: mode :- "packages" :> PackagesAdminRoutes
+  , packageRepos :: mode :- "package-repos" :> PackageRepo.Routes
   }
   deriving stock (Generic)
 

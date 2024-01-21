@@ -258,11 +258,11 @@ openApiHandler :: OpenApi
 openApiHandler =
   toOpenApi (Proxy @API.Routes)
     & #info
-    % #title
-    .~ "Flora API"
+      % #title
+      .~ "Flora API"
     & #info
-    % #version
-    .~ "v0"
+      % #version
+      .~ "v0"
     & #info
-    % #description
-    ?~ "Flora API Documentation"
+      % #description
+      ?~ "Flora API Documentation"

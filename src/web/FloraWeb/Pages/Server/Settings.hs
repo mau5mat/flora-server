@@ -42,7 +42,7 @@ userSettingsHandler = do
   let templateEnv =
         templateEnv'
           & #title
-          .~ "Account settings"
+            .~ "Account settings"
   let user = fromJust session.mUser
   render templateEnv $
     Settings.dashboard user
@@ -54,7 +54,7 @@ userSecuritySettingsHandler = do
   let templateEnv =
         templateEnv'
           & #title
-          .~ "Security settings"
+            .~ "Security settings"
   render
     templateEnv
     Settings.securitySettings
@@ -67,7 +67,7 @@ getTwoFactorSettingsHandler = do
   let templateEnv =
         templateEnv'
           & #title
-          .~ "Security settings"
+            .~ "Security settings"
   let user = fromJust session.mUser
   case user.totpKey of
     Nothing -> do
@@ -113,9 +113,9 @@ postTwoFactorSetupHandler TwoFactorConfirmationForm{code = userCode} = do
           let templateEnv =
                 templateEnv'
                   & #title
-                  .~ "Security settings"
+                    .~ "Security settings"
                   & #flashError
-                  ?~ mkError "Code validation failed, please retry"
+                    ?~ mkError "Code validation failed, please retry"
           let uri = TwoFactor.uriFromKey "localhost" user.email userKey
           let qrCode =
                 QRCode.generateQRCode uri

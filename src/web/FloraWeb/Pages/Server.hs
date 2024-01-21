@@ -49,8 +49,8 @@ aboutHandler = do
   let (templateEnv :: TemplateEnv) =
         templateDefaults
           & #activeElements
-          % #aboutNav
-          .~ True
+            % #aboutNav
+            .~ True
   render templateEnv Home.about
 
 serveNotFound :: FloraPage (Html ())

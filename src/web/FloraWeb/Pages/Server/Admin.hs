@@ -43,6 +43,7 @@ server cfg env =
       , packages = adminPackagesHandler
       , oddJobs = OddJobs.server cfg env handlerToEff
       , fetchMetadata = fetchMetadataHandler
+      , packageRepos = PackageReposAdmin.server
       }
 
 -- | This function converts a sub-tree of routes that require 'Admin' role
@@ -120,12 +121,13 @@ fetchMetadataHandler = do
   packagesWithoutDeprecationInformation <- Query.getHackagePackagesWithoutReleaseDeprecationInformation
   liftIO $
     void $
-      forkIO $ do
-        Async.forConcurrently_
-          packagesWithoutDeprecationInformation
-          ( \a -> scheduleReleaseDeprecationListJob jobsPool a
-          )
-        void $ scheduleRefreshLatestVersions jobsPool
+      forkIO $
+        do
+          Async.forConcurrently_
+            packagesWithoutDeprecationInformation
+            ( \a -> scheduleReleaseDeprecationListJob jobsPool a
+            )
+          void $ scheduleRefreshLatestVersions jobsPool
 
   pure $ redirect "/admin"
 
